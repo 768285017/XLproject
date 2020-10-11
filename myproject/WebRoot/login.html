@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>用户登陆</title>
+        <link href="./css/login.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div id="loginForm">
+            <form action="http://localhost:8080/myproject/login" method="post">
+                <p><input id="userName" name="userName" type="text" placeholder="用户名"/></p>
+                <p><input id="password" name="password" type="password" placeholder="密码"/></p>
+                <p><input id="code" name="code" type="text" placeholder="验证码"/></p>
+                    <img id="codeImg" src="http://localhost:8080/myproject/captchaController" style = "cursor:pointer" onclick="onclickImage()" title="看不起，换一个"/>
+            </p>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="setNotLogin" id="setNotLogin" value="yes"/>是否同意七天免登录
+            <p>
+            <input id="btLogin" type="submit" value="登&nbsp;&nbsp;陆"/> </p>
+            </form>
+        </div>
+    </body>
+    <script type="text/javascript">
+        function onclickImage(){
+            var codeImg = document.getElementById("codeImg");
+            codeImg.src = "http://localhost:8080/myproject/captchaController?t="+Math.random();
+            // alert(1);
+        }
+    </script>
+</html>
