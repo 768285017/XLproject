@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>用户登陆</title>
+        <link href="./css/register.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div id="registerForm">
+        	<p style="font-size: 20px;">账号注册：</p>
+            <form action="http://localhost:8080/myproject/register" method="post">
+            	
+                <p><input id="userName" name="userName" type="text" placeholder="用户名" onblur="leaveNameInput()"/></p>
+                <p id="leaveNameInfo" style="display: none;color: red;size: 5pxs;" ></p>
+                <p><input id="chrName" name="chrName" type="text" placeholder="真实用户名" onblur="leavechrNameInput()" style="height: 25px;width: 280px;"/></p>
+                <p id="leavechrNameInfo" style="display: none;color: red;size: 5pxs;" ></p>
+                <p><input id="password" name="password" type="password" placeholder="密码" onblur="leavePasswordInput()"/></p>
+                 <p id="leavePasswordInfo" style="display: none;color: red;size: 5pxs;" ></p>
+                <p><input id="email" type="text" name="email" placeholder="邮箱" style="width: 280px;height: 25px;" onblur="leaveEmailInput()"/></p>
+                <p id="leaveEmailInfo" style="display: none;color: red;size: 5pxs;" ></p>
+                <p> <select style="height: 25px;width: 280px;" name="pId" id="pId" onchange="provinceFun()">
+                	<option >请选择省份</option>
+                	<option value="1">湖北</option>
+				    <option value="2">湖南</option>
+				    <option value="3">安徽</option>
+                </select></p>
+                <p> <select style="height: 25px;width: 280px;" name="cId" id="cId">
+                	<option >请选择城市</option>
+                </select></p>
+           </p>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="setNotLogin" id="setNotLogin" value="yes"/>是否同意七天免登录
+            <p id="ajaxLoginInfo" style="display: none;color: red;size: 5pxs;" ></p>
+            <p>
+            <input id="btLogin" type="submit" value="登&nbsp;&nbsp;陆" /> </p>
+            </form>
+        </div>
+    </body>
+    <script type="text/javascript">
+        function leaveNameInput(){
+        	var userName = document.getElementById("userName").value;
+        	alert(userName);
+        	var leaveNameInfo = document.getElementById("leaveNameInfo");
+        	if(!userName){
+        		// 未输入用户名
+        		leaveNameInfo.style.display="";  // 显示p标签的内容
+        		leaveNameInfo.innerHTML = "请输入用户名!";
+        	}else{
+        		leaveNameInfo.style.display="none";  // 隐藏p标签的内容
+        	}
+        };
+        function leavechrNameInput(){
+        	var chrName = document.getElementById("chrName").value;
+        	alert(chrName);
+        	var leavechrNameInfo = document.getElementById("leavechrNameInfo");
+        	if(!chrName){
+        		// 未输入用户名
+        		leavechrNameInfo.style.display="";  // 显示p标签的内容
+        		leavechrNameInfo.innerHTML = "请输入用户名!";
+        	}else{
+        		leavechrNameInfo.style.display="none";  // 隐藏p标签的内容
+        	}
+        };
+        // 离开密码编辑验证
+         function leavePasswordInput(){
+        	var password = document.getElementById("password").value;
+        	var leavePasswordInfo = document.getElementById("leaveEmailInfo");
+        	if(!password){
+        		// 未输入密码
+        		leavePasswordInfo.innerHTML = "请输入 密码!";
+        		leavePasswordInfo.style.display="";  // 显示p标签的内容
+        	}else{
+        		leavePasswordInfo.style.display="none";  // 隐藏p标签的内容
+        	}
+        };
+        // 离开邮箱时验证
+        function leaveEmailInput(){
+        	var email = document.getElementById("email").value;
+        	var leaveEmailInfo = document.getElementById("leaveEmailInfo");
+        	if(!email){
+        		leaveEmailInfo.innerHTML = "请输入邮箱!"
+        		leaveEmailInfo.style.display="";
+        	}else{
+        		leaveEmailInfo.style.display="none";  // 隐藏p标签的内容
+        	}
+        }
+        // 选择城市后回调方法
+        function provinceFun(){
+        	
+        }
+    </script>
+</html>

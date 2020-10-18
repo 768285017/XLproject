@@ -8,14 +8,19 @@
     <body>
         <div id="loginForm">
             <form action="http://localhost:8080/myproject/login" method="post">
-                <p><input id="userName" name="userName" type="text" placeholder="用户名"/></p>
-                <p><input id="password" name="password" type="password" placeholder="密码"/></p>
-                <p><input id="code" name="code" type="text" placeholder="验证码"/></p>
+                <p><input id="userName" name="userName" type="text" placeholder="用户名" onblur="leaveNameInput()"/></p>
+                <p id="leaveNameInfo" style="display: none;color: red;size: 5pxs;" ></p>
+                <p><input id="password" name="password" type="password" placeholder="密码" onblur="leavePasswordInput()"/></p>
+                 <p id="leavePasswordInfo" style="display: none;color: red;size: 5pxs;" ></p>
+                <p><input id="code" name="code" type="text" placeholder="验证码" onblur="leaveCodeInput()"</p>
                     <img id="codeImg" src="http://localhost:8080/myproject/captchaController" style = "cursor:pointer" onclick="onclickImage()" title="看不起，换一个"/>
-            </p>
+           		 <p id="leaveCodeInfo" style="display: none;color: red;size: 5pxs;" ></p>
+           </p>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="setNotLogin" id="setNotLogin" value="yes"/>是否同意七天免登录
+            <p id="ajaxLoginInfo" style="display: none;color: red;size: 5pxs;" ></p>
             <p>
-            <input id="btLogin" type="submit" value="登&nbsp;&nbsp;陆"/> </p>
+            <input id="btLogin" type="button" value="登&nbsp;&nbsp;陆" onclick="loginFun()"/>
+            <input id="btRegister" type="button" value="注&nbsp;&nbsp;册" onclick="registerFun()"/> </p>
             </form>
         </div>
     </body>
@@ -25,5 +30,74 @@
             codeImg.src = "http://localhost:8080/myproject/captchaController?t="+Math.random();
             // alert(1);
         }
+        // 离开用户名编辑验证
+        function leaveNameInput(){
+        	var userName = document.getElementById("userName").value;
+        	alert(userName);
+        	var leaveNameInfo = document.getElementById("leaveNameInfo");
+        	if(!userName){
+        		// 未输入用户名
+        		leaveNameInfo.style.display="";  // 显示p标签的内容
+        		leaveNameInfo.innerHTML = "请输入用户名!";
+        	}else{
+        		leaveNameInfo.style.display="none";  // 隐藏p标签的内容
+        	}
+        };
+        // 离开密码编辑验证
+         function leavePasswordInput(){
+        	var password = document.getElementById("password").value;
+        	var leavePasswordInfo = document.getElementById("leavePasswordInfo");
+        	if(!password){
+        		// 未输入密码
+        		leavePasswordInfo.innerHTML = "请输入 密码!";
+        		leavePasswordInfo.style.display="";  // 显示p标签的内容
+        	}else{
+        		leavePasswordInfo.style.display="none";  // 隐藏p标签的内容
+        	}
+        };
+         // 离开验证码编辑验证
+         function leaveCodeInput(){
+        	var code = document.getElementById("code").value;
+        	var leaveCodeInfo = document.getElementById("leaveCodeInfo");
+        	if(!code){
+        		// 未输入密码
+        		leaveCodeInfo.innerHTML = "请输入 验证码!";
+        		leaveCodeInfo.style.display="";  // 显示p标签的内容
+        	}else{
+        		leaveCodeInfo.style.display="none";  // 隐藏p标签的内容
+        	}
+        };
+        // 按钮点击发送登录请求
+        function loginFun() {
+	      //发送异步请求
+	      //1.创建ajax引擎对象----所有操作都是由ajax引擎完成
+	      var xmlHttp = new XMLHttpRequest();
+	      
+	      var content = "userName="+document.getElementById("userName").value+"&password=" + document.getElementById("password").value+"code="+document.getElementById("code").value;
+	      // 获取参数
+	      //2.为引擎对象绑定监听事件
+	      xmlHttp.onreadystatechange = function() {
+	             //当状态变化时处理的事情
+	             if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+	                   //5.接收响应信息
+	                    var data = xmlHttp.responseText;
+	                    //console.log(data);
+	                    // 进行操作 : 提示登录失败消息
+	                    var ajaxLoginInfo = document.getElementById("ajaxLoginInfo");
+	                    ajaxLoginInfo.innerHTML = data;
+	                    ajaxLoginInfo.style.display = "";
+	             }
+	
+	      }
+	    xmlHttp.open("POST", "/myproject/ajaxLogin", true);            
+        xmlHttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        //4.发送请求
+        xmlHttp.send(content);
+       };
+       // 点击注册跳转到注册页面进行注册
+       function registerFun(){
+       		window.location.href="./register.html"
+       }
+         
     </script>
 </html>

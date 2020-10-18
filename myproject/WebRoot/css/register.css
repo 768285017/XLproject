@@ -4,9 +4,9 @@ body {
     font-size:14px;
     background-repeat: no-repeat;
 }
-#loginForm{
+#registerForm{
     width: 380px;
-    height: 230px;
+    height: 400px;
     background-color: rgb(12, 78, 177);
     margin:200px auto;
     padding-top: 30px;
@@ -14,7 +14,7 @@ body {
     border-radius: 1em ;
 
 }
-#loginForm p{
+#registerForm p{
     text-indent: 45px;
 }
 #userName,
@@ -52,20 +52,12 @@ body {
     vertical-align: middle;
 }
 #btLogin{
-    width: 80px;
+    width: 280px;
     height: 35px;
     background-color:rgb(13, 76, 148);
     color: rgb(255, 255, 255);
     font-weight: bold;
     
-}
-#btRegister{
-	width: 80px;
-    height: 35px;
-    background-color:rgb(13, 76, 148);
-    color: rgb(255, 255, 255);
-    font-weight: bold;
-    margin-left: 80px;
 }
 
 

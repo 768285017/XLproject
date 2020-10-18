@@ -2,6 +2,7 @@ package com.wtu.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -55,6 +56,48 @@ public class UserDao {
 			}
 		}
 		return user;
+	}
+	/**
+	 * 用户注册
+	 * @param user2
+	 */
+	public void registerUser(User user) {
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			// 执行sql查询
+			stmt = conn.createStatement();
+			String sql;
+			sql = "insert into user(user_name, name, email, pId, cId, password) values( ?, ?, ?, ?, ?, ?)";
+//			rs = stmt.executeQuery(sql);
+			// 设置值
+			PreparedStatement ptmt = conn.prepareStatement(sql);
+			ptmt.setString(1, user.getUserName());
+			ptmt.setString(2, user.getName());
+			ptmt.setString(3, user.getEamil());
+			ptmt.setLong(4, user.getpId());
+			ptmt.setLong(5, user.getcId());
+			ptmt.setString(6, user.getPassword());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			//关闭资源
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
